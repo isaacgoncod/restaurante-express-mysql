@@ -1,10 +1,11 @@
 const conn = require("../database/connection");
-const Cliente = require("../models/Cliente");
 
 const authCliente = (req, res) => {
-  let cliente = new Cliente(req.body);
+  const { email, senha } = req.body;
 
-  conn.query(cliente.auth(), function (err, resp) {
+  const query = `SELECT * FROM cliente WHERE email = '${email}' AND senha = '${senha}'`;
+
+  conn.query(query, function (err, resp) {
     if (err) {
       res.status(401).json(err).end();
     }

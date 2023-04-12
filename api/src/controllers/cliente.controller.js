@@ -11,6 +11,8 @@ const addCliente = (req, res) => {
       res.status(400).json({ sqlMessage, sqlState }).end();
     }
 
+    cliente.addTelefone();
+
     res.status(201).json(resp).end();
   });
 };

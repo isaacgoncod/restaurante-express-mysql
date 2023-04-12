@@ -6,7 +6,7 @@ USE restaurante;
 
 CREATE TABLE
   cliente (
-    id INT NOT NULL PRIMARY KEY,
+    id VARCHAR(255) PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL
@@ -14,9 +14,9 @@ CREATE TABLE
 
 CREATE TABLE
   telefone (
-    cliente_id INT NOT NULL,
+    cliente_id VARCHAR(255) NOT NULL,
     numero VARCHAR(255) NOT NULL,
-    FOREIGN KEY (cliente_id) REFERENCES cliente (id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (cliente_id) REFERENCES cliente (id)
   );
 
 CREATE TABLE
@@ -51,7 +51,7 @@ CREATE TABLE
 CREATE TABLE
   avaliacao (
     restaurante_id INT NOT NULL,
-    cliente_id INT NOT NULL,
+    cliente_id VARCHAR(255) NOT NULL,
     data_aval DATE NOT NULL,
     nota FLOAT (10, 2) NOT NULL,
     descricao VARCHAR(255) NOT NULL,
