@@ -1,10 +1,11 @@
 const conn = require("../database/connection");
-const Cliente = require("../models/Cliente");
 
 const addCliente = (req, res) => {
-  let cliente = new Cliente(req.body);
+  const { nome, email, senha, telefone1, telefone2 } = req.body;
 
-  conn.query(cliente.add(), function (err, resp) {
+  const q = `INSERT INTO cliente VALUE (DEFAULT, '${nome}', '${email}', '${senha}', '${telefone1}', '${telefone2}')`;
+
+  conn.query(q, function (err, resp) {
     if (err) {
       let { sqlMessage, sqlState } = err;
 
@@ -16,9 +17,9 @@ const addCliente = (req, res) => {
 };
 
 const readCliente = (req, res) => {
-  let cliente = new Cliente(req.body);
+  const q = `SELECT id, nome, email, telefone_1, telefone_2 FROM cliente`;
 
-  conn.query(cliente.read(), function (err, resp) {
+  conn.query(q, function (err, resp) {
     if (err) {
       console.log(err);
       res.status(400).json(err).end();
@@ -44,9 +45,11 @@ const updateCliente = (req, res) => {
 };
 
 const deleteCliente = (req, res) => {
-  let cliente = new Cliente(req.params);
+  const { id } = req.params;
 
-  conn.query(cliente.delete(), function (err, resp) {
+  const q = `DELETE FROM cliente WHERE id = ${id}`;
+
+  conn.query(q, function (err, resp) {
     if (err) {
       res.status(500).json(err).end();
     }

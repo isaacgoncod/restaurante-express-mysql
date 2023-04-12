@@ -1,10 +1,12 @@
 const conn = require("../database/connection");
-const Restaurante = require("../models/Restaurante");
 
 const addRestaurante = (req, res) => {
-  let restaurante = new Restaurante(req.body);
+  const { nome, categoriaId, rua, bairro, numero, complemento, cidade, uf } =
+    req.body;
 
-  conn.query(restaurante.add(), function (err, resp) {
+  const q = `INSERT INTO restaurante VALUE (DEFAULT, '${nome}', ${categoriaId}, '${rua}', '${bairro}', '${numero}', '${complemento}', '${cidade}', '${uf}')`;
+
+  conn.query(q, function (err, resp) {
     if (err) {
       let { sqlMessage, sqlState } = err;
 
@@ -16,9 +18,9 @@ const addRestaurante = (req, res) => {
 };
 
 const readRestaurante = (req, res) => {
-  let restaurante = new Restaurante(req.body);
+  const q = `SELECT * FROM restaurante`;
 
-  conn.query(restaurante.read(), function (err, resp) {
+  conn.query(q, function (err, resp) {
     if (err) {
       console.log(err);
       res.status(400).json(err).end();
@@ -29,9 +31,11 @@ const readRestaurante = (req, res) => {
 };
 
 const readRestHome = (req, res) => {
-  const query = `SELECT r.nome, c.nome_cat, a.nota FROM restaurante r INNER JOIN categoria c ON c.id = r.categoria_id INNER JOIN avaliacao a ON r.id = a.restaurante_id`;
+  const { cat } = req.query;
 
-  conn.query(query, function (err, resp) {
+  const q = `SELECT r.nome, c.nome_cat, a.nota FROM restaurante r INNER JOIN categoria c ON c.id = r.categoria_id INNER JOIN avaliacao a ON r.id = a.restaurante_id WHERE c.nome_cat = '${cat}'`;
+
+  conn.query(q, function (err, resp) {
     if (err) {
       res.status(400).json(err);
     }
@@ -45,9 +49,9 @@ const updateRestaurante = (req, res) => {
   const { nome, categoriaId, rua, bairro, numero, complemento, cidade, uf } =
     req.body;
 
-  const query = `UPDATE restaurante SET nome = '${nome}', categoria_id = ${categoriaId}, rua = '${rua}', bairro = '${bairro}', numero = '${numero}', complemento = '${complemento}',cidade = '${cidade}', uf = '${uf}'  WHERE id = ${id}`;
+  const q = `UPDATE restaurante SET nome = '${nome}', categoria_id = ${categoriaId}, rua = '${rua}', bairro = '${bairro}', numero = '${numero}', complemento = '${complemento}',cidade = '${cidade}', uf = '${uf}'  WHERE id = ${id}`;
 
-  conn.query(query, function (err, resp) {
+  conn.query(q, function (err, resp) {
     if (err) {
       res.status(500).json(err).end();
     }
@@ -57,9 +61,11 @@ const updateRestaurante = (req, res) => {
 };
 
 const deleteRestaurante = (req, res) => {
-  let restaurante = new Restaurante(req.params);
+  const { id } = req.params;
 
-  conn.query(restaurante.delete(), function (err, resp) {
+  const q = `DELETE FROM restaurante WHERE id = ${id}`;
+
+  conn.query(q, function (err, resp) {
     if (err) {
       res.status(500).json(err).end();
     }

@@ -16,6 +16,8 @@ const authCliente = (req, res) => {
     let clientePass = resp[0];
 
     delete clientePass.senha;
+    delete clientePass.telefone_1;
+    delete clientePass.telefone_2;
 
     res.status(200).json(clientePass).end();
   });

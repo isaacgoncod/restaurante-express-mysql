@@ -1,10 +1,11 @@
 const conn = require("../database/connection");
-const Categoria = require("../models/Categoria");
 
 const addCategoria = (req, res) => {
-  let categoria = new Categoria(req.body);
+  const { nome } = req.body;
 
-  conn.query(categoria.add(), function (err, resp) {
+  const q = `INSERT INTO categoria VALUE (DEFAULT, '${nome}')`;
+
+  conn.query(q, function (err, resp) {
     if (err) {
       let { sqlMessage, sqlState } = err;
 
@@ -16,9 +17,9 @@ const addCategoria = (req, res) => {
 };
 
 const readCategoria = (req, res) => {
-  let categoria = new Categoria(req.body);
+  const q = `SELECT * FROM categoria`;
 
-  conn.query(categoria.read(), function (err, resp) {
+  conn.query(q, function (err, resp) {
     if (err) {
       console.log(err);
       res.status(400).json(err).end();
@@ -44,9 +45,11 @@ const updateCategoria = (req, res) => {
 };
 
 const deleteCategoria = (req, res) => {
-  let categoria = new Categoria(req.params);
+  const { id } = req.params;
 
-  conn.query(categoria.delete(), function (err, resp) {
+  const q = `DELETE FROM categoria WHERE id = ${id}`;
+
+  conn.query(q, function (err, resp) {
     if (err) {
       res.status(500).json(err).end();
     }

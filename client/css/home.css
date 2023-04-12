@@ -1,0 +1,19 @@
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding: 50px;
+}
+main .form-group {
+  width: 200px;
+  box-shadow: #0000003d 0px 3px 8px;
+  padding: 20px;
+  border-radius: 7px;
+}
+
+main .table {
+  width: 50%;
+  box-shadow: #0000003d 0px 3px 8px;
+  padding: 20px;
+  border-radius: 7px;
+}

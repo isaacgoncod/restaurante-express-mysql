@@ -1,10 +1,11 @@
 const conn = require("../database/connection");
-const Cardapio = require("../models/Cardapio");
 
 const addCardapio = (req, res) => {
-  let cardapio = new Cardapio(req.body);
+  const { restauranteId, descricao, valor } = req.body;
 
-  conn.query(cardapio.add(), function (err, resp) {
+  const q = `INSERT INTO cardapio VALUE (DEFAULT, ${restauranteId}, '${descricao}', '${valor}')`;
+
+  conn.query(q, function (err, resp) {
     if (err) {
       let { sqlMessage, sqlState } = err;
 
@@ -16,9 +17,9 @@ const addCardapio = (req, res) => {
 };
 
 const readCardapio = (req, res) => {
-  let cardapio = new Cardapio(req.body);
+  const q = `SELECT * FROM cardapio`;
 
-  conn.query(cardapio.read(), function (err, resp) {
+  conn.query(q, function (err, resp) {
     if (err) {
       console.log(err);
       res.status(400).json(err).end();
@@ -44,9 +45,11 @@ const updateCardapio = (req, res) => {
 };
 
 const deleteCardapio = (req, res) => {
-  let cardapio = new Cardapio(req.params);
+  const { id } = req.params;
 
-  conn.query(cardapio.delete(), function (err, resp) {
+  const q = `DELETE FROM cardapio WHERE id = ${id}`;
+
+  conn.query(q, function (err, resp) {
     if (err) {
       res.status(500).json(err).end();
     }

@@ -1,10 +1,11 @@
 const conn = require("../database/connection");
-const Avaliacao = require("../models/Avaliacao");
 
 const addAvaliacao = (req, res) => {
-  let avaliacao = new Avaliacao(req.body);
+  const { restauranteId, clienteId, dataAval, nota, descricao } = req.body;
 
-  conn.query(avaliacao.add(), function (err, resp) {
+  const q = `INSERT INTO avaliacao VALUE (DEFAULT, ${restauranteId}, ${clienteId}, '${dataAval}', ${nota}, '${descricao}')`;
+
+  conn.query(q, function (err, resp) {
     if (err) {
       let { sqlMessage, sqlState } = err;
 
@@ -16,9 +17,9 @@ const addAvaliacao = (req, res) => {
 };
 
 const readAvaliacao = (req, res) => {
-  let avaliacao = new Avaliacao(req.body);
+  const q = `SELECT * FROM avaliacao`;
 
-  conn.query(avaliacao.read(), function (err, resp) {
+  conn.query(q, function (err, resp) {
     if (err) {
       console.log(err);
       res.status(400).json(err).end();
@@ -44,9 +45,11 @@ const updateAvaliacao = (req, res) => {
 };
 
 const deleteAvaliacao = (req, res) => {
-  let avaliacao = new Avaliacao(req.params);
+  const { id } = req.params;
 
-  conn.query(avaliacao.delete(), function (err, resp) {
+  const q = `DELETE FROM avaliacao WHERE id = ${id}`;
+
+  conn.query(q, function (err, resp) {
     if (err) {
       res.status(500).json(err).end();
     }

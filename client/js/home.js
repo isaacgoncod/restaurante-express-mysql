@@ -1,10 +1,13 @@
-const uri = "http://localhost:3000/";
+const uri = "http://localhost:3000/rest";
 const corpo = document.querySelector("#corpo");
+let query = document.querySelector("#query");
 
-fetch(uri + "rest/read/home", { method: "GET" })
-  .then((resp) => resp.json())
-  .then((resp) => montarTabela(resp))
-  .catch((err) => console.error(err));
+query.addEventListener("change", () => {
+  fetch(uri + "/read/home?cat=" + query.value, { method: "GET" })
+    .then((resp) => resp.json())
+    .then((resp) => montarTabela(resp))
+    .catch((err) => console.error(err));
+});
 
 function montarTabela(vetor) {
   vetor.forEach((e) => {
