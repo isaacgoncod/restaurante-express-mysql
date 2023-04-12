@@ -28,6 +28,21 @@ const readCategoria = (req, res) => {
   });
 };
 
+const updateCategoria = (req, res) => {
+  const { id } = req.params;
+  const { nome } = req.body;
+
+  const query = `UPDATE categoria SET nome = '${nome}' WHERE id = ${id}`;
+
+  conn.query(query, function (err, resp) {
+    if (err) {
+      res.status(500).json(err).end();
+    }
+
+    res.status(202).json(resp).end();
+  });
+};
+
 const deleteCategoria = (req, res) => {
   let categoria = new Categoria(req.params);
 
@@ -43,5 +58,6 @@ const deleteCategoria = (req, res) => {
 module.exports = {
   addCategoria,
   readCategoria,
+  updateCategoria,
   deleteCategoria,
 };

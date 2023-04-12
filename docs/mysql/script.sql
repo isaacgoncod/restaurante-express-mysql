@@ -6,17 +6,12 @@ USE restaurante;
 
 CREATE TABLE
   cliente (
-    id VARCHAR(255) PRIMARY KEY,
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    senha VARCHAR(255) NOT NULL
-  );
-
-CREATE TABLE
-  telefone (
-    cliente_id VARCHAR(255) NOT NULL,
-    numero VARCHAR(255) NOT NULL,
-    FOREIGN KEY (cliente_id) REFERENCES cliente (id)
+    email VARCHAR(255) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    telefone_1 VARCHAR(255) NOT NULL,
+    telefone_2 VARCHAR(255)
   );
 
 CREATE TABLE
@@ -50,8 +45,9 @@ CREATE TABLE
 
 CREATE TABLE
   avaliacao (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     restaurante_id INT NOT NULL,
-    cliente_id VARCHAR(255) NOT NULL,
+    cliente_id INT NOT NULL,
     data_aval DATE NOT NULL,
     nota FLOAT (10, 2) NOT NULL,
     descricao VARCHAR(255) NOT NULL,

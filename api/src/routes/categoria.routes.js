@@ -7,6 +7,8 @@ router.post("/add", categoriaController.addCategoria);
 
 router.get("/read", categoriaController.readCategoria);
 
+router.put("/update/:id", categoriaController.updateCategoria);
+
 router.delete("/delete/:id", categoriaController.deleteCategoria);
 
 module.exports = router;

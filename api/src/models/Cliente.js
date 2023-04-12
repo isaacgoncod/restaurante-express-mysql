@@ -1,35 +1,19 @@
-const conn = require("../database/connection");
-const ClienteTelefone = require("./ClienteTelefone");
-
 class Cliente {
   constructor(i) {
     this.id = i.id;
     this.nome = i.nome;
     this.email = i.email;
     this.senha = i.senha;
-    this.numero = i.numero;
+    this.telefone1 = i.telefone1;
+    this.telefone2 = i.telefone2;
   }
 
   add() {
-    const query = `INSERT INTO cliente VALUE ('${this.id}', '${this.nome}', '${this.email}', '${this.senha}')`;
-
-    return query;
-  }
-
-  addTelefone() {
-    // let clienteTelefone = new ClienteTelefone(this.id, this.numero);
-    const query = `INSERT INTO telefone VALUE ('${this.id}', '${this.numero}')`;
-
-    conn.query(query, function (err, resp) {
-      if (err) {
-        console.log(err);
-      }
-    });
-    return;
+    return `INSERT INTO cliente VALUE (DEFAULT, '${this.nome}', '${this.email}', '${this.senha}', '${this.telefone1}', '${this.telefone2}')`;
   }
 
   read() {
-    return `SELECT id, nome, email FROM cliente`;
+    return `SELECT id, nome, email, telefone_1, telefone_2 FROM cliente`;
   }
 
   delete() {
