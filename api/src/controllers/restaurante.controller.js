@@ -28,6 +28,18 @@ const readRestaurante = (req, res) => {
   });
 };
 
+const readRestHome = (req, res) => {
+  const query = `SELECT r.nome, c.nome_cat, a.nota FROM restaurante r INNER JOIN categoria c ON c.id = r.categoria_id INNER JOIN avaliacao a ON r.id = a.restaurante_id`;
+
+  conn.query(query, function (err, resp) {
+    if (err) {
+      res.status(400).json(err);
+    }
+
+    res.status(200).json(resp);
+  });
+};
+
 const updateRestaurante = (req, res) => {
   const { id } = req.params;
   const { nome, categoriaId, rua, bairro, numero, complemento, cidade, uf } =
@@ -59,6 +71,7 @@ const deleteRestaurante = (req, res) => {
 module.exports = {
   addRestaurante,
   readRestaurante,
+  readRestHome,
   updateRestaurante,
   deleteRestaurante,
 };

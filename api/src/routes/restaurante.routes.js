@@ -7,6 +7,8 @@ router.post("/add", restauranteController.addRestaurante);
 
 router.get("/read", restauranteController.readRestaurante);
 
+router.get("/read/home", restauranteController.readRestHome);
+
 router.put("/update/:id", restauranteController.updateRestaurante);
 
 router.delete("/delete/:id", restauranteController.deleteRestaurante);
