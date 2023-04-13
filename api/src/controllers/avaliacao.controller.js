@@ -1,9 +1,9 @@
 const conn = require("../database/connection");
 
 const addAvaliacao = (req, res) => {
-  const { restauranteId, clienteId, dataAval, nota, descricao } = req.body;
+  const { restauranteId, clienteId, dataAval, nota, descricaoAval } = req.body;
 
-  const q = `INSERT INTO avaliacao VALUE (DEFAULT, ${restauranteId}, ${clienteId}, '${dataAval}', ${nota}, '${descricao}')`;
+  const q = `INSERT INTO avaliacao VALUE (DEFAULT, ${restauranteId}, ${clienteId}, '${dataAval}', ${nota}, '${descricaoAval}')`;
 
   conn.query(q, function (err, resp) {
     if (err) {
@@ -31,9 +31,9 @@ const readAvaliacao = (req, res) => {
 
 const updateAvaliacao = (req, res) => {
   const { id } = req.params;
-  const { restauranteId, clienteId, dataAval, nota, descricao } = req.body;
+  const { restauranteId, clienteId, dataAval, nota, descricaoAval } = req.body;
 
-  const query = `UPDATE avaliacao SET restaurante_id = '${restauranteId}', cliente_id = '${clienteId}', data_aval = '${dataAval}', nota = '${nota}', descricao = '${descricao}' WHERE id = ${id}`;
+  const query = `UPDATE avaliacao SET restaurante_id = '${restauranteId}', cliente_id = '${clienteId}', data_aval = '${dataAval}', nota = '${nota}', descricao = '${descricaoAval}' WHERE id = ${id}`;
 
   conn.query(query, function (err, resp) {
     if (err) {

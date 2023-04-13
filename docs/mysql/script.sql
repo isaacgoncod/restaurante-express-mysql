@@ -17,7 +17,7 @@ CREATE TABLE
 CREATE TABLE
   categoria (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nome_cat VARCHAR(255) NOT NULL
+    nome_cat VARCHAR(255) NOT NULL UNIQUE
   );
 
 CREATE TABLE
@@ -50,7 +50,7 @@ CREATE TABLE
     cliente_id INT NOT NULL,
     data_aval DATE NOT NULL,
     nota FLOAT (10, 2) NOT NULL,
-    descricao VARCHAR(255) NOT NULL,
+    descricao_aval VARCHAR(255) NOT NULL,
     FOREIGN KEY (cliente_id) REFERENCES cliente (id) ON UPDATE CASCADE,
     FOREIGN KEY (restaurante_id) REFERENCES restaurante (id) ON UPDATE CASCADE
   );
