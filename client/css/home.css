@@ -17,3 +17,7 @@ main .table {
   padding: 20px;
   border-radius: 7px;
 }
+
+main .table-modal{
+  width: 100%;
+}

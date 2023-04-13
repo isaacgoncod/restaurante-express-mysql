@@ -40,10 +40,10 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-fullscreen">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Title</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Informações</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -51,7 +51,27 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">...</div>
+            <div class="modal-body d-flex justify-content-center">
+              <table class="table table-modal">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Rua</th>
+                    <th>Numero</th>
+                    <th>Bairro</th>
+                    <th>Cidade</th>
+                    <th>UF</th>
+                    <th>Complemento</th>
+                    <th>Opção</th>
+                    <th>Valor</th>
+                    <th>Avaliação</th>
+                    <th>Data</th>
+                    <th>Comentário</th>
+                  </tr>
+                </thead>
+                <tbody class="modal-corpo"></tbody>
+              </table>
+            </div>
             <div class="modal-footer">
               <button
                 type="button"

@@ -57,7 +57,9 @@ const readRestHomeWhere = (req, res) => {
 };
 
 const infoRest = (req, res) => {
-  const q = `SELECT r.nome, r.rua, r.numero, r.bairro, r.cidade, r.uf, r.complemento, c.descricao, c.valor, a.nota, a.data_aval, a.descricao_aval FROM restaurante r INNER JOIN cardapio c ON c.restaurante_id = r.id INNER JOIN avaliacao a ON r.id = a.restaurante_id`;
+  const { nome } = req.query;
+
+  const q = `SELECT r.nome, r.rua, r.numero, r.bairro, r.cidade, r.uf, r.complemento, c.descricao, c.valor, a.nota, a.data_aval, a.descricao_aval FROM restaurante r INNER JOIN cardapio c ON c.restaurante_id = r.id INNER JOIN avaliacao a ON r.id = a.restaurante_id WHERE r.nome = '${nome}'`;
 
   conn.query(q, function (err, resp) {
     if (err) {
