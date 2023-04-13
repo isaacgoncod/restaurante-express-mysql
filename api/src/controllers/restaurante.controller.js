@@ -45,7 +45,7 @@ const readRestHome = (req, res) => {
 const readRestHomeWhere = (req, res) => {
   const { cat } = req.query;
 
-  const q = `SELECT r.nome, c.nome_cat, a.nota FROM restaurante r INNER JOIN categoria c ON c.id = r.categoria_id INNER JOIN avaliacao a ON r.id = a.restaurante_id WHERE c.nome_cat = '${cat}'`;
+  const q = `SELECT r.id, r.nome, c.nome_cat, a.nota FROM restaurante r INNER JOIN categoria c ON c.id = r.categoria_id INNER JOIN avaliacao a ON r.id = a.restaurante_id WHERE c.nome_cat = '${cat}'`;
 
   conn.query(q, function (err, resp) {
     if (err) {

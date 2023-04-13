@@ -82,9 +82,9 @@ function getRestInfo(vetor) {
     col6.innerHTML = e.uf;
     col7.innerHTML = e.complemento;
     col8.innerHTML = e.descricao;
-    col9.innerHTML = e.valor;
+    col9.innerHTML = formatarMoeda(e.valor);
     col10.innerHTML = e.nota;
-    col11.innerHTML = e.data_aval;
+    col11.innerHTML = formatarData(e.data_aval);
     col12.innerHTML = e.descricao_aval;
 
     linha.appendChild(col1);
@@ -102,4 +102,19 @@ function getRestInfo(vetor) {
 
     modal.appendChild(linha);
   });
+}
+
+function formatarData(data) {
+  return new Date(data).toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+}
+
+function formatarMoeda(valor) {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(valor);
 }
