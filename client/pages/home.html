@@ -85,19 +85,16 @@
                 <div class="container mt-5">
                   <form>
                     <div class="form-floating mb-3">
-                      <select
-                        class="form-select"
+                      <input
+                        type="number"
+                        class="form-control"
                         id="avaliacao"
                         name="avaliacao"
-                      >
-                        <option value="">Selecione uma avaliação</option>
-                        <option value="5">5 estrelas</option>
-                        <option value="4">4 estrelas</option>
-                        <option value="3">3 estrelas</option>
-                        <option value="2">2 estrelas</option>
-                        <option value="1">1 estrela</option>
-                      </select>
-                      <label for="avaliacao">Avaliação</label>
+                        min="1"
+                        max="5"
+                        step="1"
+                        required
+                      />
                     </div>
                     <div class="form-floating mb-3">
                       <input
