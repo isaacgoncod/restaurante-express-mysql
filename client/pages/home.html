@@ -43,7 +43,7 @@
         <div class="modal-dialog modal-fullscreen">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Informações</h5>
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
               <button
                 type="button"
                 class="btn-close"
@@ -51,7 +51,7 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body d-flex justify-content-center">
+            <div class="modal-body d-flex align-items-center flex-column">
               <table class="table table-modal">
                 <thead>
                   <tr>
@@ -64,22 +64,66 @@
                     <th>Complemento</th>
                     <th>Opção</th>
                     <th>Valor</th>
-                    <th>Avaliação</th>
-                    <th>Data</th>
-                    <th>Comentário</th>
                   </tr>
                 </thead>
                 <tbody class="modal-corpo"></tbody>
               </table>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-mdb-dismiss="modal"
-              >
-                Fechar
-              </button>
+
+              <div class="container mt-5">
+                <div class="modal-aval-title">
+                  <p>Avaliação</p>
+                  <p>Data</p>
+                  <p>Comentário</p>
+                </div>
+
+                <div class="table tabela-scroll">
+                  <table class="table table-modal-aval">
+                    <tbody class="modal-corpo-aval"></tbody>
+                  </table>
+                </div>
+
+                <div class="container mt-5">
+                  <form>
+                    <div class="form-floating mb-3">
+                      <select
+                        class="form-select"
+                        id="avaliacao"
+                        name="avaliacao"
+                      >
+                        <option value="">Selecione uma avaliação</option>
+                        <option value="5">5 estrelas</option>
+                        <option value="4">4 estrelas</option>
+                        <option value="3">3 estrelas</option>
+                        <option value="2">2 estrelas</option>
+                        <option value="1">1 estrela</option>
+                      </select>
+                      <label for="avaliacao">Avaliação</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="data"
+                        name="data"
+                        required
+                      />
+                      <label for="data">Data</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <textarea
+                        class="form-control"
+                        id="comentario"
+                        name="comentario"
+                        rows="4"
+                      ></textarea>
+                      <label for="comentario">Comentário</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                      Enviar
+                    </button>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -100,7 +144,7 @@
           <tr>
             <th>Nome</th>
             <th>Categoria</th>
-            <th>Nota</th>
+            <th>Informações</th>
           </tr>
         </thead>
         <tbody id="corpo"></tbody>

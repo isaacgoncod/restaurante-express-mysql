@@ -1,6 +1,8 @@
 const url = "http://localhost:3000/rest";
 const corpo = document.querySelector("#corpo");
 const modal = document.querySelector(".modal-corpo");
+const modalAval = document.querySelector(".modal-corpo-aval");
+const modalTitle = document.querySelector(".modal-title");
 let query = document.querySelector("#query");
 
 query.addEventListener("change", () => {
@@ -12,6 +14,7 @@ query.addEventListener("change", () => {
     .then((resp) => resp.json())
     .then((resp) => {
       corpo.innerHTML = "";
+
       montarTabela(resp);
     })
     .catch((err) => console.error(err));
@@ -22,14 +25,12 @@ function montarTabela(vetor) {
     let linha = document.createElement("tr");
     let col1 = document.createElement("td");
     let col2 = document.createElement("td");
-    let col3 = document.createElement("td");
     let col4 = document.createElement("td");
     let button = document.createElement("button");
 
     col1.innerHTML = e.nome;
     col2.innerHTML = e.nome_cat;
-    col3.innerHTML = e.nota;
-    button.innerHTML = "info";
+    button.innerHTML = "Info";
 
     button.setAttribute("type", "button");
     button.setAttribute("data-mdb-toggle", "modal");
@@ -40,7 +41,6 @@ function montarTabela(vetor) {
 
     linha.appendChild(col1);
     linha.appendChild(col2);
-    linha.appendChild(col3);
     linha.appendChild(col4);
     col4.appendChild(button);
 
@@ -53,7 +53,17 @@ function getNomeRest(nome) {
     .then((resp) => resp.json())
     .then((resp) => {
       modal.innerHTML = "";
+
       getRestInfo(resp);
+    })
+    .catch((err) => console.error(err));
+
+  fetch(url + "/read/home/info/aval?nome=" + nome, { method: "GET" })
+    .then((resp) => resp.json())
+    .then((resp) => {
+      modalAval.innerHTML = "";
+
+      getAvalInfo(resp);
     })
     .catch((err) => console.error(err));
 }
@@ -70,10 +80,8 @@ function getRestInfo(vetor) {
     let col7 = document.createElement("td");
     let col8 = document.createElement("td");
     let col9 = document.createElement("td");
-    let col10 = document.createElement("td");
-    let col11 = document.createElement("td");
-    let col12 = document.createElement("td");
 
+    modalTitle.innerHTML = e.nome;
     col1.innerHTML = e.nome;
     col2.innerHTML = e.rua;
     col3.innerHTML = e.numero;
@@ -83,9 +91,6 @@ function getRestInfo(vetor) {
     col7.innerHTML = e.complemento;
     col8.innerHTML = e.descricao;
     col9.innerHTML = formatarMoeda(e.valor);
-    col10.innerHTML = e.nota;
-    col11.innerHTML = formatarData(e.data_aval);
-    col12.innerHTML = e.descricao_aval;
 
     linha.appendChild(col1);
     linha.appendChild(col2);
@@ -96,11 +101,27 @@ function getRestInfo(vetor) {
     linha.appendChild(col7);
     linha.appendChild(col8);
     linha.appendChild(col9);
-    linha.appendChild(col10);
-    linha.appendChild(col11);
-    linha.appendChild(col12);
 
     modal.appendChild(linha);
+  });
+}
+
+function getAvalInfo(vetor) {
+  vetor.forEach((e) => {
+    let linha = document.createElement("tr");
+    let col1 = document.createElement("td");
+    let col2 = document.createElement("td");
+    let col3 = document.createElement("td");
+
+    col1.innerHTML = e.nota;
+    col2.innerHTML = formatarData(e.data_aval);
+    col3.innerHTML = e.descricao_aval;
+
+    linha.appendChild(col1);
+    linha.appendChild(col2);
+    linha.appendChild(col3);
+
+    modalAval.appendChild(linha);
   });
 }
 

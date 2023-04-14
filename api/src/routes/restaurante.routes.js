@@ -13,6 +13,8 @@ router.get("/read/home", restauranteController.readRestHomeWhere);
 
 router.get("/read/home/info", restauranteController.infoRest);
 
+router.get("/read/home/info/aval", restauranteController.infoRestAval);
+
 router.put("/update/:id", restauranteController.updateRestaurante);
 
 router.delete("/delete/:id", restauranteController.deleteRestaurante);

@@ -31,7 +31,7 @@ const readRestaurante = (req, res) => {
 };
 
 const readRestHome = (req, res) => {
-  const q = `SELECT r.nome, c.nome_cat, a.nota FROM restaurante r INNER JOIN categoria c ON c.id = r.categoria_id INNER JOIN avaliacao a ON r.id = a.restaurante_id`;
+  const q = `SELECT r.nome, c.nome_cat FROM restaurante r INNER JOIN categoria c ON c.id = r.categoria_id`;
 
   conn.query(q, function (err, resp) {
     if (err) {
@@ -45,7 +45,7 @@ const readRestHome = (req, res) => {
 const readRestHomeWhere = (req, res) => {
   const { cat } = req.query;
 
-  const q = `SELECT r.id, r.nome, c.nome_cat, a.nota FROM restaurante r INNER JOIN categoria c ON c.id = r.categoria_id INNER JOIN avaliacao a ON r.id = a.restaurante_id WHERE c.nome_cat = '${cat}'`;
+  const q = `SELECT r.id, r.nome, c.nome_cat FROM restaurante r INNER JOIN categoria c ON c.id = r.categoria_id WHERE c.nome_cat = '${cat}'`;
 
   conn.query(q, function (err, resp) {
     if (err) {
@@ -57,6 +57,20 @@ const readRestHomeWhere = (req, res) => {
 };
 
 const infoRest = (req, res) => {
+  const { nome } = req.query;
+
+  const q = `SELECT r.nome, r.rua, r.numero, r.bairro, r.cidade, r.uf, r.complemento, c.descricao, c.valor FROM restaurante r INNER JOIN cardapio c ON c.restaurante_id = r.id WHERE r.nome = '${nome}'`;
+
+  conn.query(q, function (err, resp) {
+    if (err) {
+      res.status(400).json(err);
+    }
+
+    res.status(200).json(resp);
+  });
+};
+
+const infoRestAval = (req, res) => {
   const { nome } = req.query;
 
   const q = `SELECT r.nome, r.rua, r.numero, r.bairro, r.cidade, r.uf, r.complemento, c.descricao, c.valor, a.nota, a.data_aval, a.descricao_aval FROM restaurante r INNER JOIN cardapio c ON c.restaurante_id = r.id INNER JOIN avaliacao a ON r.id = a.restaurante_id WHERE r.nome = '${nome}'`;
@@ -106,6 +120,7 @@ module.exports = {
   readRestHome,
   readRestHomeWhere,
   infoRest,
+  infoRestAval,
   updateRestaurante,
   deleteRestaurante,
 };
